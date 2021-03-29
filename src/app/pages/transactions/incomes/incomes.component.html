@@ -1,0 +1,28 @@
+<div class="row" *ngIf="!isDashboard">
+  <h3> Incomes </h3>
+  <button class="btn-add" nbButton status="primary" (click)="addIncome()">Add <nb-icon icon="plus-circle-outline"></nb-icon></button>
+</div>
+
+<ngx-month-year-filter [isDashboard]="isDashboard" [filters]="paymentTypes"
+(onApply)="onApplyFilter($event)" (onFilterChange)="onFilterChange($event)"></ngx-month-year-filter>
+
+<div class="lists row">
+  <div class="col-md col-lg col-xxxl" *ngIf="incomesData">
+    <nb-card class="list-card">
+      <!-- <nb-card-header>September</nb-card-header> -->
+      <nb-card-body>
+        <ngx-transactions-list [transactions]="incomesData" [isDashboard]="isDashboard" (edit)="onEdit($event)" (delete)="onDelete($event)">
+        </ngx-transactions-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div *ngIf="!isDashboard">
+  <nb-card *ngIf="chartDataSource">
+    <nb-card-header>Monthly</nb-card-header>
+    <nb-card-body>
+      <ngx-echarts-bar [dataSource]="chartDataSource" [xAxisLabel]="chartXAxisLabels"
+      [yAxisLabel]="chartYAxisLabels"></ngx-echarts-bar>
+    </nb-card-body>
+  </nb-card>
+</div>

@@ -1,0 +1,25 @@
+<div class="filter-group" *ngIf="!isDashboard">
+    <div class="left">
+      <nb-select class="item-width" [(selected)]="selectedMonth" id="month-filter">
+        <nb-option *ngFor="let month of months()" [value]="month">{{ month }}</nb-option>
+      </nb-select>
+      <nb-select class="item-width" [(selected)]="selectedYear" id="year-filter">
+        <nb-option *ngFor="let year of years()" [value]="year">{{ year }}</nb-option>
+      </nb-select>
+      <button class="btn-add" nbButton status="primary" (click)="applyFilter()">Apply </button>
+    </div>
+    <div class="right">
+      <nb-select class="item-pad" (selectedChange)="filterSelect($event)" id="data-filter" placeholder="Select"
+      [disabled]="!filters">
+        <nb-option *ngFor="let filter of filters" [value]="filter">{{ filter }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
+  <div *ngIf="isDashboard && onlyYear">
+    <div class="left">
+      <nb-select class="item-width" [(selected)]="selectedYear" id="year-filter">
+        <nb-option *ngFor="let year of years()" [value]="year">{{ year }}</nb-option>
+      </nb-select>
+      <button class="btn-add" nbButton status="primary" (click)="applyFilter()">Apply </button>
+    </div>
+  </div>

@@ -1,0 +1,56 @@
+<nb-card>
+  <nb-card-header> Income </nb-card-header>
+
+  <nb-card-body>
+    <form [formGroup]="incomeForm" (ngSubmit)="onSubmit(incomeForm.value)">
+      <div class="form-group row">
+        <label for="income-description" class="label col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="description" fullWidth id="income-description" placeholder="Description" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="income-date" class="label col-sm-3 col-form-label">Date</label>
+        <div class="col-sm-9">
+          <input nbInput
+                fullWidth
+                formControlName="dated"
+               placeholder="Date"
+               [nbDatepicker]="incomeDate" required>
+        <nb-datepicker #incomeDate></nb-datepicker>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="income-amount" class="label col-sm-3 col-form-label">Amount</label>
+        <div class="col-sm-9">
+          <input type="number" formControlName="amount" nbInput fullWidth id="income-amount" placeholder="Amount" required>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="(paymentType$ | async) as paymentTypes">
+        <label for="income-payment-type" class="label col-sm-3 col-form-label">Payment Type</label>
+        <div class="col-sm-9">
+          <nb-select selected="1" formControlName="paymentType" fullWidth id="income-payment-types" required placeholder="Select Payment Type">
+            <nb-option *ngFor="let paymentType of paymentTypes" [value]="paymentType.description">{{ paymentType.description }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="income-tag" class="label col-sm-3 col-form-label">Tag</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="tag" fullWidth id="income-tag" placeholder="Tag">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="income-subDescription" class="label col-sm-3 col-form-label">Additional Details</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="subDescription" fullWidth id="income-subDescription" placeholder="Additional Details">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" nbButton status="primary" [disabled]="saveInProgress || !incomeForm.valid"> {{ getAction() }} </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

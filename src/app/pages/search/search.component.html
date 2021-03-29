@@ -1,0 +1,57 @@
+<nb-card>
+    <nb-card-header> Search Filters </nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="filterForm" (ngSubmit)="onSubmit(filterForm.value)">
+            <div class="form-group row">
+                <label for="filter-type" class="label col-sm-3 col-form-label">Type</label>
+                <div class="col-sm-9">
+                    <nb-select selected="1" formControlName="type" fullWidth id="filter-type"
+                    placeholder="Select a Type" required>
+                    <nb-option value="expenses">Expenses</nb-option>
+                    <nb-option value="incomes">Incomes</nb-option>
+                </nb-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="filter-from-date" class="label col-sm-3 col-form-label">From</label>
+                <div class="col-sm-9">
+                    <input nbInput fullWidth formControlName="from" placeholder="From Date" [nbDatepicker]="fromDate">
+                    <nb-datepicker #fromDate></nb-datepicker>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="filter-to-date" class="label col-sm-3 col-form-label">To</label>
+                <div class="col-sm-9">
+                    <input nbInput fullWidth formControlName="to" placeholder="To Date" [nbDatepicker]="toDate">
+                    <nb-datepicker #toDate></nb-datepicker>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="(paymentType$ | async) as paymentTypes">
+                <label for="filter-payment-type" class="label col-sm-3 col-form-label">Payment Type</label>
+                <div class="col-sm-9">
+                    <nb-select selected="1" formControlName="paymentType" fullWidth id="filter-payment-types"
+                        placeholder="Select a Payment Type">
+                        <nb-option *ngFor="let paymentType of paymentTypes" [value]="paymentType.description">
+                            {{ paymentType.description }}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="(category$ | async) as categories">
+                <label for="filter-categories" class="label col-sm-3 col-form-label">Category</label>
+                <div class="col-sm-9">
+                    <nb-select selected="1" formControlName="category" fullWidth id="filter-categories"
+                        placeholder="Select a Category">
+                        <nb-option *ngFor="let category of categories" [value]="category.description">
+                            {{ category.description }}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!filterForm.valid"> Apply </button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -1,0 +1,64 @@
+<nb-card>
+  <nb-card-header> Expense </nb-card-header>
+
+  <nb-card-body>
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit(expenseForm.value)">
+      <div class="form-group row">
+        <label for="expense-description" class="label col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="description" fullWidth id="expense-description" placeholder="Description" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="expense-date" class="label col-sm-3 col-form-label">Date</label>
+        <div class="col-sm-9">
+          <input nbInput
+                fullWidth
+                formControlName="dated"
+               placeholder="Date"
+               [nbDatepicker]="expenseDate" required>
+        <nb-datepicker #expenseDate></nb-datepicker>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="expense-amount" class="label col-sm-3 col-form-label">Amount</label>
+        <div class="col-sm-9">
+          <input type="number" formControlName="amount" nbInput fullWidth id="expense-amount" placeholder="Amount" required>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="(paymentType$ | async) as paymentTypes">
+        <label for="expense-payment-type" class="label col-sm-3 col-form-label">Payment Type</label>
+        <div class="col-sm-9">
+          <nb-select selected="1" formControlName="paymentType" fullWidth id="expense-payment-types" required placeholder="Select a Payment Type">
+            <nb-option *ngFor="let paymentType of paymentTypes" [value]="paymentType.description">{{ paymentType.description }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="(category$ | async) as categories">
+        <label for="expense-categories" class="label col-sm-3 col-form-label">Category</label>
+        <div class="col-sm-9">
+          <nb-select selected="1" formControlName="category" fullWidth id="expense-categories" required placeholder="Select a Category">
+            <nb-option *ngFor="let category of categories" [value]="category.description">{{ category.description }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="expense-tag" class="label col-sm-3 col-form-label">Tag</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="tag" fullWidth id="expense-tag" placeholder="Tag">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="expense-subDescription" class="label col-sm-3 col-form-label">Additional Details</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="subDescription" fullWidth id="expense-subDescription" placeholder="Additional Details">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" nbButton status="primary" [disabled]="saveInProgress || !expenseForm.valid"> {{ getAction() }} </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

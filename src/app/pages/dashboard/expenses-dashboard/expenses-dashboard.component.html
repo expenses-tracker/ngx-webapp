@@ -1,0 +1,53 @@
+<div>
+    <h3>Dashboard</h3>
+    <ngx-month-year-filter [isDashboard]="true" [onlyYear]="true" (onApply)="onApplyFilter($event)"></ngx-month-year-filter>
+</div>
+<div *ngIf="(dashboardData$ | async) as dashboardData">
+    <div class="row card-container">
+        <nb-card size="tiny" accent="primary">
+            <nb-card-header>Expenses</nb-card-header>
+            <nb-card-body>
+                <b>{{ this.totalExpenses | currency:'INR':'symbol' }}</b>
+              </nb-card-body>
+          </nb-card>
+          <nb-card size="tiny" accent="info">
+            <nb-card-header>Incomes</nb-card-header>
+            <nb-card-body>
+                <b>{{ this.totalIncomes | currency:'INR':'symbol' }}</b>
+              </nb-card-body>
+          </nb-card>
+          <nb-card size="tiny" [status]="totalSavings > 0 ? 'success' : 'danger'">
+            <nb-card-header>Savings</nb-card-header>
+            <nb-card-body>
+                <b>{{ this.totalSavings | currency:'INR':'symbol' }}</b>
+              </nb-card-body>
+          </nb-card>
+      </div>
+
+    <div class="row">
+        <h3>Monthly Comparison</h3>
+    </div>
+    <div class="transaction-layout">
+        <ngx-echarts-bar-animation [data1]="expensesChartDataSource" [data2]="incomesChartDataSource" [xAxisData]="chartXAxisLabels"></ngx-echarts-bar-animation>
+    </div>
+
+    <div class="row">
+        <h3>Expenses</h3>
+        <b><i> (Recent 5)</i></b>
+    </div>
+    <div class="transaction-layout">
+        <ngx-expenses [isDashboard]="true"
+        [data]="dashboardData.expenses.entries"
+        [chartData]="dashboardData.expenses.chart"></ngx-expenses>
+    </div>
+    
+    <div class="row">
+        <h3>Incomes</h3>
+        <b><i> (Recent 5)</i></b>
+    </div>
+    <div class="transaction-layout">
+        <ngx-incomes [isDashboard]="true"
+        [data]="dashboardData.incomes.entries"
+        [chartData]="dashboardData.incomes.chart"></ngx-incomes>
+    </div>
+</div>

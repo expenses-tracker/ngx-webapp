@@ -1,0 +1,67 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.8.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli
+    npm install
+  displayName: 'Setup'
+
+# - script: |
+#     npm run test
+#   displayName: 'Run Unit Tests'
+
+# - task: PublishTestResults@2
+#   condition: succeededOrFailed()
+#   inputs:
+#     testResultsFormat: 'JUnit'
+#     testResultsFiles: '**/TESTS-*.xml'
+#     failTaskOnFailedTests: true
+#   displayName: 'Publish Unit Tests results'
+
+# - script: |
+#     npm run e2e
+#   displayName: 'Run End to End Tests'
+
+- script: |
+    npm run build:prod
+  displayName: 'Build'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: 'dist'
+#     ArtifactName: 'expense-sheets'
+#     publishLocation: 'Container'
+#   displayName: 'Publish Build Artifacts'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'dist'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/public'
+  displayName: 'Copy web content to deploy'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '**\firebase.json'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true/
+  displayName: 'Copy firebase config for deployment'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'package'
+    publishLocation: 'Container'

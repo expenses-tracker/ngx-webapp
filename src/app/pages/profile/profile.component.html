@@ -1,0 +1,29 @@
+<nb-card size="large" style="min-width: 40rem;" [nbSpinner]="loading" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <nb-card-header>Profile</nb-card-header>
+    <nb-card-body *ngIf="(user$ | async) as userInfo">
+      <ng-template #noDataFound>
+        <h6>No data found</h6>
+      </ng-template>
+      <div *ngIf="userInfo.fullName; else noDataFound">
+        <div class="item text-hint header">
+          Full Name
+          <span><h5 class="text-basic">{{ userInfo.fullName }}</h5></span>
+        </div>
+        <div class="item text-hint header">
+          Email Address
+          <span><h5 class="text-basic">{{ userInfo.email }}</h5></span>
+        </div>
+        <div class="item text-hint header">
+          Currency Preference
+          <span><h5 class="text-basic">{{ findDefaultCurrency(userInfo) }}</h5></span>
+        </div>
+        <div class="item text-hint header">
+          Last Logged On Time
+          <span><h5 class="text-basic">{{ userInfo.lastLoggedOn | date:'dd MMM yyyy h:mm a' }}</h5></span>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton hero status="primary" (click)="dismiss()">Close</button>
+    </nb-card-footer>
+  </nb-card>

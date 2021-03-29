@@ -1,0 +1,26 @@
+.filter-group {
+    display: flex;
+    flex-grow: 0;
+    width: 100%;
+    flex-direction: row;
+    padding: 1rem 0;
+    .left {
+      width: 50%;
+      text-align: left;
+      flex-direction: column;
+      align-content: stretch;
+    }
+    .right {
+      width: 50%;
+      text-align: right;
+      flex-direction: column;
+      align-content: space-around;
+    }
+  }
+  .item-width {
+    width: 30%;
+    padding-right: 0.5rem;
+  }
+  .item-pad {
+    width: 50%;
+  }

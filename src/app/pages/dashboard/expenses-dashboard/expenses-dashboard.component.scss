@@ -1,0 +1,19 @@
+.transaction-layout {
+    height: 35rem;
+    margin: 1rem 0;
+}
+.row > b {
+    align-self: center;
+    padding-left: 0.5rem;
+}
+.card-container {
+    nb-card {
+        margin: 1%;
+        width: 30%;
+        height: 10rem;
+        nb-card-body {
+            font-size: xx-large;
+            text-align: center;
+        }
+    }
+}

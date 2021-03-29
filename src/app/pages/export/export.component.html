@@ -1,0 +1,44 @@
+<nb-card size="large" style="min-width: 40rem;">
+    <nb-card-header>Export</nb-card-header>
+    <nb-card-body>
+        <nb-alert outline="basic">Select a date range to export the transactions</nb-alert>
+        <form [formGroup]="exportForm">
+            <div class="form-group row">
+                <div class="form-group column">
+                    <label for="from-date" class="label col-sm-3 col-form-label">From</label>
+                    <div class="col-sm-9">
+                      <input nbInput
+                            fullWidth
+                            formControlName="fromDate"
+                           placeholder="From Date"
+                           [nbDatepicker]="fromDate" required>
+                    <nb-datepicker #fromDate></nb-datepicker>
+                    </div>
+                  </div>
+    
+                  <div class="form-group column">
+                    <label for="to-date" class="label col-sm-3 col-form-label">To</label>
+                    <div class="col-sm-9">
+                      <input nbInput
+                            fullWidth
+                            formControlName="toDate"
+                           placeholder="To Date"
+                           [nbDatepicker]="toDate" required>
+                    <nb-datepicker #toDate></nb-datepicker>
+                    </div>
+                  </div>
+
+                  <div class="form-group column">
+                    <button nbButton (click)="export()" [disabled]="!exportForm.valid || totalProgress > 0">Export</button>
+                  </div>
+            </div>
+            <nb-progress-bar *ngIf="exportForm.valid" [value]="totalProgress" [status]="progressType">{{ progressMessage }}</nb-progress-bar>
+        </form>
+        <br>
+        <nb-alert *ngIf="totalProgress === 100" outline="success" closable>Export Successfull</nb-alert>
+        <nb-alert *ngIf="totalProgress === -1" outline="danger" closable>Export Failed</nb-alert>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton hero status="primary" (click)="dismiss()">Close</button>
+    </nb-card-footer>
+  </nb-card>

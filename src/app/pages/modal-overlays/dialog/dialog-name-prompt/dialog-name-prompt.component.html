@@ -1,0 +1,21 @@
+<nb-card *ngIf="confirmText">
+  <nb-card-header>Delete</nb-card-header>
+  <nb-card-body>
+    <div>Are you sure you want to delete? Please enter the text, `<b>{{ confirmText }}</b>` to confirm and delete.</div>
+    <input #name nbInput placeholder="Text">
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button>
+    <button nbButton status="success" (click)="submit(name.value)">Delete</button>
+  </nb-card-footer>
+</nb-card>
+
+<nb-card *ngIf="message">
+  <nb-card-header>Message</nb-card-header>
+  <nb-card-body>
+    <div>Text did not match. Please try again.</div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="primary" (click)="cancel()">Close</button>
+  </nb-card-footer>
+</nb-card>

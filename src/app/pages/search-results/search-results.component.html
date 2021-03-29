@@ -1,0 +1,22 @@
+<nb-card accent="danger" *ngIf="!filters || searchResultLength === 0">
+    <nb-card-header>Search Results</nb-card-header>
+    <nb-card-body>
+        No result found.
+    </nb-card-body>
+</nb-card>
+<div *ngIf="(searchData$ | async) as results">
+    <nb-card accent="primary">
+        <nb-card-header>Filters applied</nb-card-header>
+        <nb-card-body>
+            <div *ngFor="let filterParam of getFiltersKeys()"><b>{{ filterParam }}</b>: {{ getFiltersValues(filterParam) }}</div>
+        </nb-card-body>
+    </nb-card>
+    <div *ngIf="filters.type === 'expenses'">
+        <h3>Expenses</h3>
+        <ngx-expenses [isDashboard]="true" [data]="results"></ngx-expenses>
+    </div>
+    <div *ngIf="filters.type === 'incomes'">
+        <h3>Incomes</h3>
+        <ngx-incomes [isDashboard]="true" [data]="results"></ngx-incomes>
+    </div>
+</div>
