@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: dev-ci-cd
 
 # Controls when the action will run. 
 on:
@@ -71,8 +71,8 @@ jobs:
           with:
             # Destination path
             name: dist
-        - name: Display structure of downloaded files
-          run: ls -R
+        # - name: Display structure of downloaded files
+        #   run: ls -R
         - name: Deploy the build
           uses: w9jds/firebase-action@v2.0.0
           with:
