@@ -54,6 +54,24 @@
             ]
           },
           "configurations": {
+            "development": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "sourceMap": true,
+              "extractCss": true,
+              "extractLicenses": true,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -85,6 +103,9 @@
             "browserTarget": "webapp:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "webapp:build:development"
+            },
             "production": {
               "browserTarget": "webapp:build:production"
             }
