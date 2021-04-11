@@ -6,7 +6,7 @@
 export const environment = {
   production: true,
   service: {
-    domain: 'https://us-central1-com-varnit-expense-sheet.cloudfunctions.net/app',
+    domain: process.env.SERVICE_DOMAIN,
     endpoints: {
       login: '/users/login',
       register: '/users/register',
