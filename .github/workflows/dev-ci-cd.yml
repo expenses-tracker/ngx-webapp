@@ -40,7 +40,7 @@ jobs:
         
       # Build
       - name: Build
-        run: npm run build:prod
+        run: npm run build:dev
         
       # Copy files
       - name: Copy file
@@ -71,11 +71,6 @@ jobs:
           with:
             # Destination path
             name: dist
-        
-        - name: Make envfile
-          uses: SpicyPizza/create-envfile@v1
-          with:
-            envkey_SERVICE_DOMAIN: ${{ secrets.SERVICE_DOMAIN_DEV }}
 
         - name: Deploy the build
           uses: w9jds/firebase-action@v2.0.0
