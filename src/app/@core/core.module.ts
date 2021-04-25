@@ -14,6 +14,9 @@ import { UserData } from './data/users';
 import { UserService } from './mock/users.service';
 import { MockDataModule } from './mock/mock-data.module';
 import { environment } from 'environments/environment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './services/http/httperrorinterceptor.service';
+import { ToasterService } from './services/toaster.service';
 
 const DATA_SERVICES = [
   { provide: UserData, useClass: UserService },
@@ -90,6 +93,12 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         ...NB_CORE_PROVIDERS,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: HttpErrorInterceptor,
+          multi: true,
+          deps: [ToasterService]
+        }
       ],
     };
   }

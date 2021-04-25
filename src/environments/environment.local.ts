@@ -1,7 +1,7 @@
- export const environment = {
+export const environment = {
     production: false,
     service: {
-      domain: 'https://us-central1-expense-sheets-dev.cloudfunctions.net/appdev',
+      domain: 'http://localhost:3000',
       endpoints: {
         login: '/users/login',
         register: '/users/register',
